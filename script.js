@@ -1,396 +1,205 @@
-/* === Cybertronic & Feminine Enhancements === */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+// --- Constants ---
+const scriptURL = "https://script.google.com/macros/s/AKfycbycacQ5QMsDUicyqL9OrDzysVq8kEWMC5eyfYkhmbBc-p4ZlDeYnfylw2XelDO9hzc/exec"; // TODO: Replace with your Apps Script URL
+const shareLimit = 5;
 
-body {
-  min-height: 100vh;
-  margin: 0;
-  font-family: 'Poppins', 'Inter', 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #e0f7fa 0%, #f3e5f5 100%);
-  overflow-x: hidden;
-  color: #222;
-}
-.background-gradient {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  z-index: 0;
-  background: linear-gradient(120deg, #e0f7fa 0%, #f3e5f5 60%, #f8bbd0 100%);
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
-  background-size: cover;
-  -webkit-background-size: cover;
-}
-/* Cyber circuit SVG overlay */
-body::before {
-  content: '';
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.13;
-  background: url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><g stroke="%23EC407A" stroke-width="1.5" opacity="0.5"><rect x="10" y="10" width="80" height="80" fill="none"/><rect x="110" y="60" width="120" height="60" fill="none"/><rect x="250" y="30" width="90" height="90" fill="none"/><rect x="60" y="160" width="120" height="60" fill="none"/><rect x="200" y="200" width="80" height="80" fill="none"/></g></svg>');
-  background-repeat: repeat;
-  background-size: 320px 220px;
-}
-.decorative-blur {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.5;
-  z-index: 2;
-}
-.blur1 {
-  width: 320px; height: 320px;
-  background: radial-gradient(circle at 40% 40%, #26c6da 60%, #ec407a 100%);
-  top: -80px; left: -80px;
-}
-.blur2 {
-  width: 220px; height: 220px;
-  background: radial-gradient(circle at 60% 60%, #5C6BC0 60%, #f06292 100%);
-  bottom: -60px; right: -60px;
-}
-.container {
-  position: relative;
-  z-index: 3;
-  max-width: 440px;
-  margin: 70px auto 40px auto;
-  padding: 40px 28px 32px 28px;
-  border-radius: 36px;
-  background: rgba(255,255,255,0.72);
-  box-shadow: 0 8px 40px 0 rgba(92,107,192,0.18), 0 1.5px 8px 0 rgba(236,64,122,0.10);
-  backdrop-filter: blur(18px) saturate(1.3);
-  border: 2.5px solid;
-  border-image: linear-gradient(120deg, #26c6da 10%, #ec407a 60%, #5C6BC0 100%) 1;
-  animation: fadeIn 1.2s cubic-bezier(.4,0,.2,1);
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
-}
-.header {
-  text-align: center;
-  margin-bottom: 18px;
-}
-.logo {
-  width: 60px;
-  margin-bottom: 8px;
-}
-.title {
-  font-family: 'Orbitron', 'Poppins', 'Inter', sans-serif;
-  color: #EC407A;
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin: 0 0 2px 0;
-  letter-spacing: 1.5px;
-  text-shadow: 0 0 8px #f06292aa, 0 0 2px #26c6da99;
-  background: linear-gradient(90deg, #5C6BC0 20%, #EC407A 60%, #26C6DA 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-fill-color: transparent;
-}
-.subtitle {
-  color: #f06292;
-  font-size: 1.13rem;
-  font-weight: 600;
-  margin: 0 0 10px 0;
-  letter-spacing: 0.2px;
-  text-shadow: 0 0 4px #f8bbd0;
-}
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-.form-group {
-  margin-bottom: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-/* === Neumorphism/Glassmorphism Inputs === */
-.neumorph {
-  background: rgba(255,255,255,0.65);
-  border-radius: 18px;
-  box-shadow: 4px 4px 18px #e0e7ef, -4px -4px 18px #fff, 0 0 0 2px #ec407a22;
-  padding: 14px 18px 10px 18px;
-  transition: box-shadow 0.3s, background 0.3s, border 0.3s;
-  border: 1.5px solid #f8bbd0;
-}
-.neumorph-input {
-  border: none;
-  outline: none;
-  background: transparent;
-  font-size: 1.08rem;
-  padding: 8px 0 4px 0;
-  color: #222;
-  border-radius: 10px;
-  box-shadow: none;
-  transition: box-shadow 0.3s, border 0.3s, background 0.3s;
-}
-.neumorph-input:focus {
-  box-shadow: 0 0 0 2px #ec407a88, 0 2px 8px #26c6da22;
-  background: rgba(236,64,122,0.07);
-  border: 1.5px solid #ec407a;
-}
-label {
-  font-weight: 600;
-  color: #5C6BC0;
-  font-size: 1.01rem;
-  margin-bottom: 2px;
-  letter-spacing: 0.2px;
-}
-.file-input {
-  font-size: 0.98rem;
-  color: #3949ab;
-  background: transparent;
-  border: none;
-  margin-top: 2px;
-}
-.file-name {
-  color: #EC407A;
-  font-size: 0.97em;
-  margin-top: 2px;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-}
-.file-preview {
-  display: block;
-  margin-top: 8px;
-  max-width: 120px;
-  border-radius: 14px;
-  box-shadow: 0 2px 16px #ec407a33, 0 0 0 2px #26c6da55;
-  border: 2px solid #f8bbd0;
-  background: #fff;
-}
-/* === WhatsApp Share Badge === */
-.whatsapp-share {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 10px;
-}
-.wa-icon {
-  display: inline-block;
-  width: 20px; height: 20px;
-  background: url('https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg') no-repeat center/contain;
-  vertical-align: middle;
-  margin-right: 7px;
-  filter: drop-shadow(0 0 4px #26c6da88);
-}
-.share-badge {
-  background: linear-gradient(90deg, #26C6DA 60%, #EC407A 100%);
-  color: #fff;
-  font-weight: 700;
-  font-size: 1em;
-  border-radius: 24px;
-  padding: 4px 18px;
-  box-shadow: 0 2px 12px #ec407a33, 0 0 0 2px #26c6da55;
-  letter-spacing: 0.7px;
-  min-width: 120px;
-  text-align: center;
-  border: 2px solid #f8bbd0;
-  transition: background 0.3s, box-shadow 0.3s;
-  animation: badgePop 0.7s;
-  text-shadow: 0 0 6px #ec407a99;
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
-}
-@keyframes badgePop {
-  0% { transform: scale(0.7); opacity: 0; }
-  60% { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(1); }
-}
-/* === Buttons === */
-.btn {
-  border: none;
-  outline: none;
-  border-radius: 24px;
-  font-size: 1.13rem;
-  font-weight: 700;
-  padding: 13px 0;
-  margin-top: 8px;
-  width: 100%;
-  cursor: pointer;
-  background: linear-gradient(90deg, #5C6BC0 40%, #EC407A 80%, #26C6DA 100%);
-  color: #fff;
-  box-shadow: 0 2px 16px #ec407a22, 0 0 0 2px #26c6da55;
-  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
-  position: relative;
-  overflow: hidden;
-  border: 2px solid #f8bbd0;
-  letter-spacing: 0.7px;
-  text-shadow: 0 0 8px #ec407a99;
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
-}
-.btn:active {
-  transform: scale(0.97);
-}
-.btn:disabled {
-  background: #f8bbd0;
-  color: #3949ab;
-  cursor: not-allowed;
-  box-shadow: none;
-  border: 2px solid #f8bbd0;
-}
-.animated-btn:hover:not(:disabled) {
-  background: linear-gradient(90deg, #EC407A 60%, #26C6DA 100%);
-  box-shadow: 0 4px 24px #ec407a55, 0 0 0 2px #26c6da99;
-  animation: btnBounce 0.4s;
-}
-@keyframes btnBounce {
-  0% { transform: scale(1); }
-  30% { transform: scale(1.08); }
-  60% { transform: scale(0.96); }
-  100% { transform: scale(1); }
-}
-.shimmer-btn {
-  background: linear-gradient(90deg, #5C6BC0 40%, #EC407A 80%, #26C6DA 100%);
-  position: relative;
-  overflow: hidden;
-}
-.shimmer-btn::after {
-  content: '';
-  position: absolute;
-  top: 0; left: -75%;
-  width: 50%; height: 100%;
-  background: linear-gradient(120deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0.2) 100%);
-  animation: shimmer 2.2s infinite;
-}
-@keyframes shimmer {
-  0% { left: -75%; }
-  100% { left: 120%; }
-}
-/* === Final Message === */
-.final-message {
-  margin-top: 32px;
-  text-align: center;
-  color: #fff;
-  font-size: 1.18rem;
-  font-weight: 700;
-  background: linear-gradient(120deg, #5C6BC0 10%, #EC407A 60%, #26C6DA 100%);
-  border-radius: 24px;
-  box-shadow: 0 2px 18px #ec407a33, 0 0 0 2px #26c6da55;
-  padding: 20px 12px;
-  animation: messagePop 0.9s cubic-bezier(.4,0,.2,1);
-  opacity: 0;
-  pointer-events: none;
-  border: 2px solid #f8bbd0;
-  text-shadow: 0 0 8px #ec407a99;
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
-}
-.final-message.animated-message {
-  opacity: 1;
-  pointer-events: auto;
-  animation: messagePop 0.9s cubic-bezier(.4,0,.2,1);
-}
-@keyframes messagePop {
-  0% { transform: scale(0.7) translateY(30px); opacity: 0; }
-  60% { transform: scale(1.08) translateY(-8px); opacity: 1; }
-  100% { transform: scale(1) translateY(0); }
-}
-/* === Back to Top Button === */
-.back-to-top {
-  position: fixed;
-  bottom: 32px;
-  right: 32px;
-  background: linear-gradient(135deg, #EC407A 60%, #26C6DA 100%);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 54px;
-  height: 54px;
-  font-size: 2.1rem;
-  cursor: pointer;
-  box-shadow: 0 2px 18px #ec407a33, 0 0 0 2px #26c6da55;
-  display: none;
-  z-index: 10;
-  transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
-  animation: bounceIn 1.2s;
-  border: 2px solid #f8bbd0;
-  text-shadow: 0 0 8px #ec407a99;
-  background-clip: border-box;
-  -webkit-background-clip: border-box;
-}
-.back-to-top.bounce {
-  animation: bounceIn 1.2s;
-}
-.back-to-top:hover {
-  background: linear-gradient(135deg, #26C6DA 60%, #EC407A 100%);
-  box-shadow: 0 4px 24px #ec407a55, 0 0 0 2px #26c6da99;
-  transform: scale(1.08);
-}
-@keyframes bounceIn {
-  0% { transform: scale(0.7) translateY(60px); opacity: 0; }
-  60% { transform: scale(1.15) translateY(-8px); opacity: 1; }
-  100% { transform: scale(1) translateY(0); }
-}
-/* === Animations === */
-.animate-fadein {
-  animation: fadeIn 1.2s cubic-bezier(.4,0,.2,1);
-}
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(40px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-/* === Responsive Design === */
-@media (max-width: 700px) {
-  .container {
-    max-width: 98vw;
-    padding: 18px 2vw 18px 2vw;
-    margin: 24px auto 18px auto;
+// --- DOM Elements ---
+const form = document.getElementById('registrationForm');
+const whatsappBtn = document.getElementById('whatsappShare');
+const shareCountSpan = document.getElementById('shareCount');
+const fileInput = document.getElementById('fileUpload');
+const fileNameSpan = document.getElementById('fileName');
+const filePreview = document.getElementById('filePreview');
+const submitBtn = document.getElementById('submitBtn');
+const finalMessage = document.getElementById('finalMessage');
+const backToTopBtn = document.getElementById('backToTop');
+
+// --- LocalStorage Keys ---
+const SHARE_KEY = 'shareCount';
+const SHARE_DONE_KEY = 'shareComplete';
+const SUBMIT_KEY = 'submitted';
+
+// --- State ---
+let shareCount = parseInt(localStorage.getItem(SHARE_KEY)) || 0;
+let shareComplete = localStorage.getItem(SHARE_DONE_KEY) === 'true';
+let submitted = localStorage.getItem(SUBMIT_KEY) === 'true';
+
+// --- On Load ---
+window.onload = function() {
+  updateShareUI();
+  if (submitted) {
+    disableForm();
+    showFinalMessage('🎉 Your submission has been recorded. Thanks for being part of Tech for Girls!');
   }
-  .back-to-top {
-    right: 16px;
-    bottom: 16px;
-    width: 44px;
-    height: 44px;
-    font-size: 1.3rem;
+  // Back to top button
+  window.addEventListener('scroll', function() {
+    backToTopBtn.style.display = window.scrollY > 200 ? 'block' : 'none';
+  });
+  backToTopBtn.onclick = function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Animation enhancements
+  window.addEventListener('DOMContentLoaded', () => {
+    // Fade in form container
+    document.querySelector('.container').classList.add('animate-fadein');
+
+    // Animate final message pop-in
+    const observer = new MutationObserver(() => {
+      if (finalMessage.textContent.trim() !== '') {
+        finalMessage.classList.add('animated-message');
+      } else {
+        finalMessage.classList.remove('animated-message');
+      }
+    });
+    observer.observe(finalMessage, { childList: true });
+
+    // Button bounce on hover
+    document.querySelectorAll('.animated-btn').forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        btn.classList.add('btn-bounce');
+        setTimeout(() => btn.classList.remove('btn-bounce'), 400);
+      });
+    });
+
+    // Shimmer effect on submit button
+    submitBtn.addEventListener('mouseenter', () => {
+      submitBtn.classList.add('shimmer-btn');
+    });
+    submitBtn.addEventListener('mouseleave', () => {
+      submitBtn.classList.remove('shimmer-btn');
+    });
+
+    // Back to top button bounce
+    backToTopBtn.classList.add('bounce');
+  });
+};
+
+// --- WhatsApp Share Logic ---
+whatsappBtn.onclick = function() {
+  if (shareCount < shareLimit) {
+    const message = "Hey Buddy, Join Tech For Girls Community!";
+    const url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+    shareCount++;
+    localStorage.setItem(SHARE_KEY, shareCount);
+    if (shareCount >= shareLimit) {
+      shareComplete = true;
+      localStorage.setItem(SHARE_DONE_KEY, 'true');
+    }
+    updateShareUI();
+  }
+};
+function updateShareUI() {
+  shareCountSpan.textContent = `Click Count: ${shareCount}/${shareLimit}`;
+  if (shareComplete) {
+    whatsappBtn.disabled = true;
+    shareCountSpan.textContent = '✅ Sharing complete. Please continue.';
+  } else {
+    whatsappBtn.disabled = false;
   }
 }
-@media (max-width: 480px) {
-  .container {
-    padding: 10px 1vw 10px 1vw;
-    border-radius: 18px;
+
+// --- File Upload Preview ---
+fileInput.onchange = function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  fileNameSpan.textContent = file.name;
+  if (file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+      filePreview.src = ev.target.result;
+      filePreview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  } else {
+    filePreview.style.display = 'none';
+    filePreview.src = '';
   }
-  .title {
-    font-size: 1.3rem;
+};
+
+// --- Form Submission ---
+form.onsubmit = async function(e) {
+    e.preventDefault();
+    if (submitted) return;
+    if (!validateForm()) return;
+  
+    disableForm();
+    showFinalMessage('⏳ Submitting...');
+  
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+  
+    reader.onload = async function(event) {
+      const base64String = event.target.result.split(',')[1];
+  
+      const payload = new FormData();
+      payload.append("name", form.fullName.value.trim());
+      payload.append("phone", form.phone.value.trim());
+      payload.append("email", form.email.value.trim());
+      payload.append("college", form.college.value.trim());
+      payload.append("file", base64String);
+      payload.append("filename", file.name);
+      payload.append("mimeType", file.type);
+  
+      try {
+        const response = await fetch(scriptURL, {
+          method: "POST",
+          body: payload
+        });
+  
+        const text = await response.text();
+        if (text.includes("Success")) {
+          localStorage.setItem(SUBMIT_KEY, 'true');
+          showFinalMessage('🎉 Your submission has been recorded. Thanks for being part of Tech for Girls!');
+        } else {
+          throw new Error(text);
+        }
+      } catch (err) {
+        showFinalMessage('❌ Submission failed. Please try again later.');
+        enableForm();
+      }
+    };
+  
+    reader.readAsDataURL(file);
+  };
+
+function validateForm() {
+  const name = form.fullName.value.trim();
+  const phone = form.phone.value.trim();
+  const email = form.email.value.trim();
+  const college = form.college.value.trim();
+  const file = fileInput.files[0];
+  if (!name || !phone || !email || !college) {
+    showFinalMessage('⚠️ Please fill all fields.');
+    enableForm();
+    return false;
   }
-  .subtitle {
-    font-size: 0.98rem;
+  if (!file) {
+    showFinalMessage('⚠️ Please upload a file.');
+    enableForm();
+    return false;
+  }
+  if (!shareComplete) {
+    showFinalMessage('⚠️ Please complete WhatsApp sharing.');
+    enableForm();
+    return false;
+  }
+  return true;
+}
+
+function disableForm() {
+  Array.from(form.elements).forEach(el => el.disabled = true);
+  whatsappBtn.disabled = true;
+  submitBtn.disabled = true;
+}
+function enableForm() {
+  if (!submitted) {
+    Array.from(form.elements).forEach(el => el.disabled = false);
+    updateShareUI();
+    submitBtn.disabled = false;
   }
 }
-/* === Hover & Focus Effects === */
-.btn:hover:not(:disabled), .btn:focus-visible:not(:disabled) {
-  background: linear-gradient(90deg, #EC407A 40%, #26C6DA 80%, #5C6BC0 100%);
-  box-shadow: 0 0 0 4px #ec407a44, 0 4px 32px #26c6da55, 0 0 12px #ec407a99;
-  transform: scale(1.04);
-  outline: none;
-}
-.share-badge:hover, .share-badge:focus-visible {
-  background: linear-gradient(90deg, #26C6DA 20%, #EC407A 80%);
-  box-shadow: 0 0 0 4px #26c6da44, 0 4px 24px #ec407a55;
-  transform: scale(1.06);
-  outline: none;
-}
-.neumorph-input:hover, .neumorph-input:focus {
-  box-shadow: 0 0 0 3px #ec407a88, 0 2px 12px #26c6da44;
-  background: rgba(236,64,122,0.10);
-  border: 1.5px solid #26c6da;
-}
-.file-preview:hover {
-  box-shadow: 0 0 0 6px #26c6da55, 0 2px 24px #ec407a55;
-  border: 2px solid #26c6da;
-  filter: brightness(1.08) saturate(1.2);
-  transition: box-shadow 0.3s, border 0.3s, filter 0.3s;
-}
-.container:hover {
-  box-shadow: 0 8px 60px 0 #ec407a33, 0 1.5px 16px 0 #26c6da33;
-  border-image: linear-gradient(120deg, #ec407a 10%, #26c6da 60%, #5C6BC0 100%) 1;
-  transition: box-shadow 0.4s, border-image 0.4s;
-}
-.back-to-top:hover, .back-to-top:focus-visible {
-  background: linear-gradient(135deg, #26C6DA 60%, #EC407A 100%);
-  box-shadow: 0 0 0 6px #26c6da55, 0 4px 32px #ec407a55;
-  transform: scale(1.13) rotate(-8deg);
-  outline: none;
+function showFinalMessage(msg) {
+  finalMessage.textContent = msg;
+  finalMessage.style.display = 'block';
 } 
