@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech for Girls Registration</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-gradient"></div>
+  <div class="decorative-blur blur1"></div>
+  <div class="decorative-blur blur2"></div>
+  <div class="container glass-card animate-fadein">
+    <header class="header">
+      <img src="assets/logo.png" alt="Tech for Girls Logo" class="logo" style="display:none;"/>
+      <h1 class="title">Tech for Girls</h1>
+      <p class="subtitle">Empowering Women in Tech</p>
+    </header>
+    <form id="registrationForm" class="form" enctype="multipart/form-data" autocomplete="off">
+      <div class="form-group neumorph">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" required class="input neumorph-input" />
+      </div>
+      <div class="form-group neumorph">
+        <label for="phone">Phone Number</label>
+        <input type="number" id="phone" name="phone" required class="input neumorph-input" />
+      </div>
+      <div class="form-group neumorph">
+        <label for="email">Email ID</label>
+        <input type="email" id="email" name="email" required class="input neumorph-input" />
+      </div>
+      <div class="form-group neumorph">
+        <label for="college">College/Department</label>
+        <input type="text" id="college" name="college" required class="input neumorph-input" />
+      </div>
+      <div class="form-group neumorph">
+        <label for="fileUpload">Upload Screenshot/Resume/Photo</label>
+        <input type="file" id="fileUpload" name="fileUpload" accept=".png,.jpg,.jpeg,.pdf" required class="input file-input" />
+        <span id="fileName" class="file-name"></span>
+        <img id="filePreview" class="file-preview" style="display:none;" />
+      </div>
+      <div class="form-group whatsapp-share">
+        <button type="button" id="whatsappShare" class="btn whatsapp-btn animated-btn">
+          <span class="wa-icon"></span> Share on WhatsApp
+        </button>
+        <span id="shareCount" class="share-badge">Click Count: 0/5</span>
+      </div>
+      <button type="submit" id="submitBtn" class="btn submit-btn shimmer-btn">Submit Registration</button>
+    </form>
+    <div id="finalMessage" class="final-message animated-message" style="display:none;"></div>
+  </div>
+  <button id="backToTop" title="Back to top" class="back-to-top bounce">↑</button>
+  <script src="script.js"></script>
+</body>
+</html> 
